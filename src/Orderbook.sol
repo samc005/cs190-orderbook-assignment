@@ -96,6 +96,7 @@ contract Orderbook is IOrderbook {
         order.remaining = amount;
 
         if (side == Side.BUY) {
+            // AI syntax: calc quoteAmount as amount * price / 1e18.
             uint256 quoteAmount = amount * price;
             quoteAmount = quoteAmount / 1e18;
 
@@ -138,6 +139,7 @@ contract Orderbook is IOrderbook {
                     fillAmount = remaining;
                 }
 
+                // AI syntax: calc quoteAmount from fillAmount and order.price, then transfer base.
                 uint256 quoteAmount = fillAmount * order.price;
                 quoteAmount = quoteAmount / 1e18;
 
@@ -190,6 +192,7 @@ contract Orderbook is IOrderbook {
     }
 
     function clear() external {
+        // AI syntax: iterate over asks, transfer remaining base back to each maker, then zero remaining.
         uint256 i = 0;
         while (i < asks.length) {
             Order storage order = asks[i];
@@ -205,6 +208,7 @@ contract Orderbook is IOrderbook {
             i = i + 1;
         }
 
+        // AI syntax: iterate over bids, transfer reserved quote back to each maker, then zero remaining.
         i = 0;
         while (i < bids.length) {
             Order storage order = bids[i];
